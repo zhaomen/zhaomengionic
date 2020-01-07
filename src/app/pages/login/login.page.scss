@@ -1,127 +1,16 @@
-
-/*头部样式*/
-.header-ios .toolbar-ios:last-child .toolbar-background-ios {
-    border: none;
-}
-
-ion-header {
-    background: white;
-    box-shadow: none !important;
-}
-
-.header-md::after {
-    display: none;
-}
-
-.bar-assertive {
-    height: 50px;
-    padding: 0px 55px;
-    position: relative;
-    box-sizing: border-box;
-    box-shadow: none;
-    background: white;
-}
-
-.toolbar-md {
-    min-height: 50px;
-    background: #fff !important;
-}
-
-.scroll-content {
-    background: white;
-    padding-bottom: 0% !important;
-}
-
-
 /*登陆部分样式*/
 
 .card {
     margin: 0;
     height: 100%;
-    -webkit-box-shadow: none;
     width: 100%;
 }
-
-.login-img {
-    position: absolute;
-    opacity: 0.5;
-
-    height: -webkit-fill-available;
-}
-
 .login-list {
     margin: 18% 8% 16px !important;
-
-    .item-ios,
-    .item-md {
-        padding-left: 0;
-
-    }
-
-    .item-ios,
-    .item-md:first-child {
-        border: none;
-    }
-
-    .item-ios.item-block .item-inner {
-        padding: 0;
-
-    }
-
-    .item-md.item-block .item-inner {
-        padding: 0;
-
-    }
-
-    .label-ios,
-    .label-md {
-        margin: 0;
-    }
-
-    .icon {
-        color: #a1a1a1;
-        font-size: 1.8rem;
-        vertical-align: middle;
-
-    }
-
     .loginbutton {
         height: 44px;
         border-radius: 4px;
-        background: #34394a;
-        margin: 20% 30%;
-        width: 40%;
+        margin: 40% 20%;
+        width: 60%;
     }
-
-    .userbox {
-        border-bottom: 1px solid #ddd;
-
-        .text-input-md {
-            margin: 0px;
-        }
-
-        .text-input-ios {
-            margin: 0px;
-        }
-    }
-
-    .input-ios[clearInput] .text-input {
-        padding-right: 0px !important;
-        width: 100%;
-    }
-
-    .input-md[clearInput] .text-input {
-        padding-right: 0px !important;
-        width: 100%;
-    }
-
-
-}
-
-.list-ios>.item-block:first-child {
-    border-top: none;
-}
-
-.tabbar {
-    display: none;
 }

@@ -21,12 +21,4 @@ export class SlideComponent implements OnInit {
 
   ngOnInit() {}
 
-  favorite(){
-
-  }
-
-  share(){}
-
-  unread(){}
-
 }

@@ -3,14 +3,14 @@
   <ion-card class="card">
     <ion-list class="login-list">
       <ion-list-header style=" padding: 1% 30%;">
-        <h1 >账号登陆</h1>
+        <h1 >用户登陆</h1>
       </ion-list-header>
      
-      <ion-label  class="userbox">
+      <ion-label>
         <ion-input type="text" placeholder="用户名" [(ngModel)]="username" ></ion-input>
       </ion-label>
 
-      <ion-label class="userbox">
+      <ion-label>
         <ion-input [type]="isShow ? 'text':'password'" placeholder="密码" [(ngModel)]="password"></ion-input>
       </ion-label>
 
@@ -22,13 +22,9 @@
         <ion-toggle checked="false" [(ngModel)]="isShow"></ion-toggle>
       </ion-item>
 
-      <ion-item lines="none">
-        <ion-label>自动登录</ion-label>
-        <ion-toggle checked="false" [(ngModel)]="isRemember"></ion-toggle>
-      </ion-item>
       <ion-button (click)="login()" class="loginbutton">登录</ion-button>
       <div text-center margin-top>
-        <!-- <a (click)="wangjimima(username)" style="color:#444;font-size:1.6rem;">忘记密码</a> -->
+        <!-- <a [routerLink]="['/app/tabs']" (click)="wangjimima(username)" style="color:#444;font-size:1.6rem;">忘记密码</a> -->
       </div>
     </ion-list>
   </ion-card>

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from 'src/app/service/http.service';
 import { UtilsService } from 'src/app/service/utils.service';
-import { ModalController } from '@ionic/angular';
+import { ModalController, NavController } from '@ionic/angular';
+import { LocalStorageService } from 'src/app/service/local-storage.service';
+import { error } from 'protractor';
 
 declare var RSAKey: any;
 
@@ -13,53 +15,37 @@ declare var RSAKey: any;
 export class LoginPage implements OnInit {
 
   username;
-  password : String;
+  password;
   isRemember = false;
+  isShow;
   constructor(public httpServer:HttpService,
               public utils:UtilsService,
-              public modalCtrl: ModalController) { }
+              public modalCtrl: ModalController,
+              public navctrl:NavController,
+              public storage:LocalStorageService,
+              ) { }
 
   ngOnInit() {
+
   }
 
   async login(){
-    var encryptStr
-      await this.httpServer.post('domcfg.nsf/getRSAkey.xsp?',null).then((res: any) => {
-        console.log(res.modulus);
-        var rsa = new RSAKey();
-        rsa.setPublic(res.modulus, res.publicExponent)
-        console.log(this.password)
-        encryptStr = rsa.encrypt(this.password);
+    console.log(this.username,this.password)
+      await this.httpServer.post('login/cellphone?phone='+this.username+"&password="+this.password,null).subscribe((res: any) => {
+        console.log(res.loginType);
+        if(res.loginType == 1){
+          this.storage.setItem("phone",this.username);
+          this.storage.setItem("username",res.profile.nickname);
+          this.storage.setItem("password",this.password);
+          this.navctrl.navigateRoot("/app");
+        }
+      },error => {
+        if(error.status == "400"){
+          this.utils.showToast("用户或密码错误！请检查后重新登录","top")
+        }
       })
-      this.postlogin(encryptStr)
   }
 
-  async postlogin(password) {
-    // &RedirectTo=/domcfg.nsf/getCookie.xsp
-    let userUp = "Username=" + this.username + "&Password=" + password + "&docid=&isMobile=true" + (this.isRemember ? "&isRemember=true" : "");
-    let apiurl = "domcfg.nsf/wxAuthorize.xsp?";
-    await this.httpServer.post(apiurl,userUp).then(
-        (res : any) => {
-          console.log(res)
-         
-        }
-      ).catch( (error: any) => {
-        console.log(error)
-      })
-      await this.httpServer.post('domcfg.nsf/getCookie.xsp?',null).then((f: any) =>{
-        if (f.includes("username") && !f.includes("Anonymous")){
-          var name = f.slice(f.indexOf("=") + 1, f.length);
-          if (this.isRemember) {
-            window.localStorage.setItem("记住密码", this.isRemember.toString());
-          }
-          window.localStorage.setItem("loginusername", this.username);
-          window.localStorage.setItem("username", name);
-          window.localStorage.setItem("密码", password);
-          this.modalCtrl.dismiss();
-        } else {
-          this.utils.showToast("用户名或密码错误",'top');
-        }
-      })
-  }
+  
 
 }

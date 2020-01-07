@@ -14,10 +14,8 @@ export class AppComponent {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private modalCtrl:ModalController,
   ) {
     this.initializeApp();
-    this.checktoken();
   }
 
   initializeApp() {
@@ -25,10 +23,5 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
-  }
-
-  checktoken(){
-    const username = window.localStorage.getItem("username")
-    window.localStorage.removeItem("username");
   }
 }

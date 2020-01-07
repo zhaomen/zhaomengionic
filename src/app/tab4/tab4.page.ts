@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { LocalStorageService } from '../service/local-storage.service';
+import { NavController } from '@ionic/angular';
+import { HttpService } from '../service/http.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tab4',
@@ -7,9 +11,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Tab4Page implements OnInit {
 
-  constructor() { }
+  constructor(public storage:LocalStorageService,
+              public httpSer:HttpService,
+              public router:Router) { }
 
   ngOnInit() {
+  }
+
+  async logout() {
+      await this.httpSer.post("/logout?",null).subscribe((res:any )=> {
+        //console.log(res)
+        if(res.code == 200){
+          this.storage.removeItem("username");
+          this.router.navigate(['/login']);
+        }
+      },error => {
+        console.log(error)
+      })
   }
 
 }

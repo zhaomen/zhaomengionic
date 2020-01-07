@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { HttpService } from '../service/http.service';
+import { Banner } from '../service/data-types/common.types';
 
 @Component({
   selector: 'app-tab1',
@@ -7,6 +9,18 @@ import { Component } from '@angular/core';
 })
 export class Tab1Page {
 
-  constructor() {}
+  homebanners:Banner[];
+
+  constructor(public http:HttpService,) {}
+
+  ionViewWillEnter(){
+    this.banners();
+  }
+
+  banners(){
+       this.http.getbanner().subscribe( banners => {
+         console.log(banners);
+       });
+  }
 
 }

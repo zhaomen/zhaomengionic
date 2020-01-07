@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, InjectionToken } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
@@ -9,14 +9,16 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
-import { LoginPage } from './pages/login/login.page';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [AppComponent,LoginPage],
-  entryComponents: [LoginPage],
+  declarations: [AppComponent],
+  entryComponents: [],
   imports: [BrowserModule, 
-            IonicModule.forRoot(), 
+            IonicModule.forRoot({
+              mode:'ios',
+              backButtonText:'返回'
+            }), 
             AppRoutingModule,
             HttpClientModule,
             FormsModule,
@@ -24,7 +26,8 @@ import { FormsModule } from '@angular/forms';
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+   
   ],
   bootstrap: [AppComponent]
 })
